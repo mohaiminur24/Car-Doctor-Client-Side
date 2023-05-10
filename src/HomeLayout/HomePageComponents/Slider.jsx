@@ -12,7 +12,7 @@ const Slider = () => {
         <div className="absolute w-full flex justify-between p-10 items-center h-full bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0))]">
           <div className="w-1/2 text-white space-y-5">
             <h1 className="text-7xl font-inter font-bold">Affordable Price For Car Servicing</h1>
-            <p className="text-sm">
+            <p className="text-sm font-inter w-4/5">
               There are many variations of passages of available, but the
               majority have suffered alteration in some form
             </p>
