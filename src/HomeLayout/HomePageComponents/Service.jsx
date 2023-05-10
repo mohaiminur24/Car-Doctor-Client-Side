@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiRightArrowAlt } from "react-icons/bi";
+import { NavLink } from 'react-router-dom';
 
 const Service = ({services}) => {
     const {img,price,title} = services;
@@ -10,7 +11,7 @@ const Service = ({services}) => {
             <div className='flex justify-between'>
                 <h3 className='text-sm text-yellow-700 fobt
                 '>Price: <span>${price}</span></h3>
-                <button><BiRightArrowAlt className='text-yellow-700'/></button>
+                <NavLink to={`/service/id`}><BiRightArrowAlt className='text-yellow-700'/></NavLink>
             </div>
             
         </div>

@@ -4,7 +4,7 @@ import Service from './Service';
 const ServiceLayout = () => {
     const [services, setService] = useState(null);
     useEffect(()=>{
-        fetch("services.json")
+        fetch("http://localhost:5000/services")
         .then(res=> res.json())
         .then(data => setService(data));
     },[])
