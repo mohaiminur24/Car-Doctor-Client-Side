@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { NavLink, useLoaderData } from 'react-router-dom';
 import PageBanner from './PageBanner';
 import Facility from './Facility';
 import { BiRightArrowAlt } from "react-icons/bi";
@@ -60,7 +60,7 @@ const ServiceDetails = () => {
 
                     <div className='font-inter'>
                         <h1 className='text-2xl font-bold'>Price: <span>${price}</span></h1>
-                        <button className='w-full py-2 font-bold text-white bg-yellow-500 mt-5 rounded-md shadow-sm'>Proceed Checkout</button>
+                        <NavLink to="/checkout"><button className='w-full py-2 font-bold text-white bg-yellow-500 mt-5 rounded-md shadow-sm'>Proceed Checkout</button></NavLink>
                     </div>
 
                 </div>

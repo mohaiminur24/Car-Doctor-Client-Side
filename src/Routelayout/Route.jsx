@@ -5,11 +5,14 @@ import ServiceDetails from "../ShareableComponents/ServiceDetails";
 import AddNewService from "../AddNewServiceLayout/AddNewService";
 import LoginPage from "../AuthenticationLayout/LoginPage";
 import RegistationPage from "../AuthenticationLayout/RegistationPage";
+import Checkoutpage from "../CheckoutLayout/Checkoutpage";
+import ErrorLayout from "../ShareableComponents/ErrorLayout";
 
 const router = createBrowserRouter([
     {
         path:"/",
         element: <MainLayout/>,
+        errorElement: <ErrorLayout/>,
         children:[
             {
                 path:"/",
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path:"/signup",
                 element:<RegistationPage/>
+            },
+            {
+                path: "/checkout",
+                element: <Checkoutpage/>
             }
         ]
     }
