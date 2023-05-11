@@ -20,7 +20,7 @@ const ServiceDetails = () => {
                     <p className='text-sm text-gray-500'>{description}</p>
 
                     <div className='grid grid-cols-2 gap-5'>
-                        {facility.map(facility=> <Facility key={Math.random()*100} facility={facility}/>)}
+                        {facility && facility.map(facility=> <Facility key={Math.random()*100} facility={facility}/>)}
                     </div>
                 </div>
                 <div className='space-y-10'>

@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Service from './Service';
+import { AuthContext } from '../../AuthContextLayout/AuthContexts';
 
 const ServiceLayout = () => {
     const [services, setService] = useState(null);
+    const {homedataloading} = useContext(AuthContext);
+    
     useEffect(()=>{
         fetch("http://localhost:5000/services")
         .then(res=> res.json())
         .then(data => setService(data));
-    },[])
+    },[homedataloading])
 
     return (
         <div className='my-20'>

@@ -5,9 +5,12 @@ import app from "../FireBaseConfiglayout/FirebaseConfig";
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
+
+
 const AuthContexts = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [homedataloading , sethomedataloading] = useState(false);
 
 
   const handleRegistration =(email, pass)=>{
@@ -43,7 +46,9 @@ const AuthContexts = ({ children }) => {
     loading,
     handleRegistration,
     UserLogOut,
-    handleLoginUser
+    handleLoginUser,
+    homedataloading,
+    sethomedataloading
   };
 
   return (
