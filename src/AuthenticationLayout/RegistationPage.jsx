@@ -1,15 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
 import loginpic from "../assets/images/login/login.svg";
 import LoginwithSocial from "./LoginwithSocial";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContextLayout/AuthContexts";
 
 const RegistationPage = () => {
+  const {handleRegistration} = useContext(AuthContext);
+  const nevigate = useNavigate();
+
+  const createNewUser = (event) =>{
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const photourl = form.photourl.value;
+    const email = form.emailaddress.value;
+    const password = form.password.value;
+
+    if(!name){
+      alert("Your name input is empty!");
+      return;
+    }else if(!photourl){
+      alert("Your Photo URL input is empty!");
+      return
+    }else if(!email){
+      alert("Your email input is empty!");
+      return
+    }else if(!password){
+      alert("Your password input is empty!");
+      return;
+    };
+
+    handleRegistration(email,password)
+    .then(res=>{
+        alert("Your user Create successfully!")
+        form.reset();
+        nevigate("/");
+    }).catch(error=>{
+        alert(error.message);
+    })
+
+    
+
+  }
   return (
     <div className="grid grid-cols-2 p-20 font-inter justify-center items-center">
       <img className="w-3/5 mx-auto" src={loginpic} alt="" />
       <div className="border p-20 rounded-md">
         <h1 className="text-3xl mb-5 font-bold text-center">Registation</h1>
-        <form>
+        <form onSubmit={createNewUser}>
           <label className="tex-sm font-bold my-1" htmlFor="name">
             Your Name
           </label>
@@ -37,7 +75,7 @@ const RegistationPage = () => {
             className="border w-full rounded-md block px-3 py-2 text-sm outline-none mb-2"
             type="email"
             placeholder="Your Email"
-            name="email"
+            name="emailaddress"
             id="email"
           />
           <label className="tex-sm font-bold my-1" htmlFor="email">
@@ -48,7 +86,7 @@ const RegistationPage = () => {
             type="password"
             placeholder="Password"
             name="password"
-            id="email"
+            id="password"
           />
           <input
             className="w-full my-3 py-2 bg-yellow-500 font-bold text-white rounded-md"
