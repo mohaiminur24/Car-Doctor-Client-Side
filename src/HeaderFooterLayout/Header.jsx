@@ -25,9 +25,9 @@ const Header = () => {
       <li>
         <NavLink
           className={({ isActive }) => isActive && "text-yellow-500"}
-          to="/services"
+          to="/addservice"
         >
-          Services
+          Add Service
         </NavLink>
       </li>
       <li>
