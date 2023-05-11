@@ -7,6 +7,7 @@ import LoginPage from "../AuthenticationLayout/LoginPage";
 import RegistationPage from "../AuthenticationLayout/RegistationPage";
 import Checkoutpage from "../CheckoutLayout/Checkoutpage";
 import ErrorLayout from "../ShareableComponents/ErrorLayout";
+import PrivateRoute from "../AuthContextLayout/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path:"/service/:id",
-                element: <ServiceDetails/>,
+                element: <PrivateRoute><ServiceDetails/></PrivateRoute>,
                 loader: ({params})=>fetch(`http://localhost:5000/service/${params.id}`)
             },
             {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/checkout",
-                element: <Checkoutpage/>
+                element: <PrivateRoute><Checkoutpage/></PrivateRoute>
             }
         ]
     }

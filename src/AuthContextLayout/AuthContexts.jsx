@@ -29,6 +29,7 @@ const AuthContexts = ({ children }) => {
   useEffect(()=>{
       const unsuscribe = onAuthStateChanged(auth, (currentuser)=>{
         setUser(currentuser);
+        setLoading(false);
       });
 
       return ()=>{
@@ -39,6 +40,7 @@ const AuthContexts = ({ children }) => {
 
   const contextValue = {
     user,
+    loading,
     handleRegistration,
     UserLogOut,
     handleLoginUser
