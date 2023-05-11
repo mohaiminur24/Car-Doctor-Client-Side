@@ -1,5 +1,5 @@
-import React, { createContext, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../FireBaseConfiglayout/FirebaseConfig";
 
 export const AuthContext = createContext(null);
@@ -14,10 +14,34 @@ const AuthContexts = ({ children }) => {
         return createUserWithEmailAndPassword(auth,email,pass);
   };
 
+  const UserLogOut = ()=>{
+    return signOut(auth);
+  };
+
+  const handleLoginUser = (email, pass)=>{
+    return signInWithEmailAndPassword(auth, email, pass);
+  }
+
+
+
+
+  // Active user located
+  useEffect(()=>{
+      const unsuscribe = onAuthStateChanged(auth, (currentuser)=>{
+        setUser(currentuser);
+      });
+
+      return ()=>{
+        return unsuscribe;
+      }
+  },[])
+
 
   const contextValue = {
     user,
-    handleRegistration
+    handleRegistration,
+    UserLogOut,
+    handleLoginUser
   };
 
   return (

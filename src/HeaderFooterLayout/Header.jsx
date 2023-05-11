@@ -2,8 +2,20 @@ import React, { useContext } from "react";
 import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 import { BiSearch,BiShoppingBag } from "react-icons/bi";
+import { AuthContext } from "../AuthContextLayout/AuthContexts";
 
 const Header = () => {
+  const {user,UserLogOut} = useContext(AuthContext);
+
+  const Logout = ()=>{
+    UserLogOut()
+    .then(res=>{
+      alert("User Logout successfully!")
+    }).catch(error=>{
+      alert(error.message);
+    })
+  };
+
   const navitems = (
     <>
       <li>
@@ -84,7 +96,7 @@ const Header = () => {
       <div className="navbar-end flex gap-5">
         <BiShoppingBag/>
         <BiSearch/>
-        <NavLink to="/login"><button className="btn btn-warning btn-outline rounded-md">Login</button></NavLink>
+        {user ? <button onClick={Logout} className="btn btn-warning btn-outline rounded-md">Logout</button> :<NavLink to="/login"><button className="btn btn-warning btn-outline rounded-md">Login</button></NavLink>}
       </div>
     </div>
   );
