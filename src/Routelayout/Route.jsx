@@ -8,6 +8,7 @@ import RegistationPage from "../AuthenticationLayout/RegistationPage";
 import Checkoutpage from "../CheckoutLayout/Checkoutpage";
 import ErrorLayout from "../ShareableComponents/ErrorLayout";
 import PrivateRoute from "../AuthContextLayout/PrivateRoute";
+import CheckOutService from "../CheckoutLayout/CheckOutService";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
             },
             {
                 path:"/addservice",
-                element: <AddNewService/>
+                element: <PrivateRoute><AddNewService/></PrivateRoute>
             },
             {
                 path:"/login",
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
                 path: "/checkout/:id",
                 element: <PrivateRoute><Checkoutpage/></PrivateRoute>,
                 loader: ({params})=>fetch(`http://localhost:5000/service/${params.id}`)
+            },
+            {
+                path: "/checkout",
+                element: <PrivateRoute><CheckOutService/></PrivateRoute>
             }
         ]
     }

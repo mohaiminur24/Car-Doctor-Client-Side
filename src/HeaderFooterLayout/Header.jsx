@@ -26,12 +26,15 @@ const Header = () => {
           Home
         </NavLink>
       </li>
-      <li>
+      {
+        user && 
+        <>
+        <li>
         <NavLink
           className={({ isActive }) => isActive && "text-yellow-500"}
-          to="/about"
+          to="/checkout"
         >
-          About
+          CheckOut
         </NavLink>
       </li>
       <li>
@@ -39,9 +42,11 @@ const Header = () => {
           className={({ isActive }) => isActive && "text-yellow-500"}
           to="/addservice"
         >
-          Add Service
+          Create Service
         </NavLink>
       </li>
+        </>
+      }
       <li>
         <NavLink
           className={({ isActive }) => isActive && "text-yellow-500"}

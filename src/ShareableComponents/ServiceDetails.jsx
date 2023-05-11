@@ -1,15 +1,32 @@
-import React from 'react';
-import { NavLink, useLoaderData } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { NavLink, useLoaderData, useNavigate } from 'react-router-dom';
 import PageBanner from './PageBanner';
 import Facility from './Facility';
 import { BiRightArrowAlt } from "react-icons/bi";
 import logo from "../assets/logo.svg"
+import { AuthContext } from '../AuthContextLayout/AuthContexts';
 
 
 const ServiceDetails = () => {
+    const {sethomedataloading,homedataloading} = useContext(AuthContext);
     const service = useLoaderData();
-    console.log(service);
     const {_id,img,price,title, facility,description} = service;
+    const nevigate = useNavigate();
+
+    const handledeleteservice =()=>{
+        fetch(`http://localhost:5000/servicedelete/${_id}`, {
+            method:"DELETE",
+        }).then(res => res.json()).then(data=> {
+            if(data.deletedCount){
+                sethomedataloading(!homedataloading);
+                alert("Your Service is Successfully deleted!");
+                nevigate("/");
+            }else{
+                alert("Something wrong try again!");
+            }
+        })
+    };
+
     return (
         <div>
             <PageBanner title="Home/Service Details">Service Details</PageBanner>
@@ -22,6 +39,7 @@ const ServiceDetails = () => {
                     <div className='grid grid-cols-2 gap-5'>
                         {facility && facility.map(facility=> <Facility key={Math.random()*100} facility={facility}/>)}
                     </div>
+                    <button onClick={handledeleteservice} className='px-5 py-2 bg-yellow-500 font-bold text-white rounded-md'>Delete Service</button>
                 </div>
                 <div className='space-y-10'>
                     <div className='font-inter p-10 space-y-4 bg-gray-100 h-fit rounded-md'>
