@@ -60,7 +60,7 @@ const ServiceDetails = () => {
 
                     <div className='font-inter'>
                         <h1 className='text-2xl font-bold'>Price: <span>${price}</span></h1>
-                        <NavLink to="/checkout"><button className='w-full py-2 font-bold text-white bg-yellow-500 mt-5 rounded-md shadow-sm'>Proceed Checkout</button></NavLink>
+                        <NavLink to={`/checkout/${_id}`}><button className='w-full py-2 font-bold text-white bg-yellow-500 mt-5 rounded-md shadow-sm'>Proceed Checkout</button></NavLink>
                     </div>
 
                 </div>
