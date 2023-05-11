@@ -3,6 +3,7 @@ import loginpic from "../assets/images/login/login.svg";
 import LoginwithSocial from "./LoginwithSocial";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContextLayout/AuthContexts";
+import { updateProfile } from "firebase/auth";
 
 const RegistationPage = () => {
   const {handleRegistration} = useContext(AuthContext);
@@ -32,6 +33,11 @@ const RegistationPage = () => {
 
     handleRegistration(email,password)
     .then(res=>{
+        const user = res.user;
+        updateProfile(user,{
+          displayName: name,
+          photoURL: photourl
+        });
         alert("Your user Create successfully!")
         form.reset();
         nevigate("/");

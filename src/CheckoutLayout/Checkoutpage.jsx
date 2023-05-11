@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PageBanner from '../ShareableComponents/PageBanner';
+import { AuthContext } from '../AuthContextLayout/AuthContexts';
 
 const Checkoutpage = () => {
+  const {user} = useContext(AuthContext);
     return (
         <div>
       <PageBanner title="Home/checkout">Check Out</PageBanner>
@@ -11,6 +13,7 @@ const Checkoutpage = () => {
             <input
               className="border w-full px-3 py-2 text-sm rounded-md outline-none my-2"
               placeholder="First Name"
+              defaultValue={user?.displayName}
               type="text"
               name="FirstName"
               id="FirstName"
@@ -28,6 +31,7 @@ const Checkoutpage = () => {
               className="border w-full px-3 py-2 text-sm rounded-md outline-none my-2"
               placeholder="Your Phone"
               type="text"
+              defaultValue={user?.phoneNumber}
               name="YourPhone"
               id="YourPhone"
             />
@@ -35,6 +39,7 @@ const Checkoutpage = () => {
               className="border w-full px-3 py-2 text-sm rounded-md outline-none my-2"
               placeholder="Your Email"
               type="email"
+              defaultValue={user?.email}
               name="email"
               id="email"
             />
