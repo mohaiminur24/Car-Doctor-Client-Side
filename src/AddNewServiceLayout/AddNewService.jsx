@@ -39,6 +39,13 @@ const AddNewService = () => {
               id="serviceType"
             />
           </div>
+          <input
+              className="border w-full px-3 py-2 text-sm rounded-md outline-none my-2"
+              placeholder="Photot URL"
+              type="text"
+              name="serviceType"
+              id="serviceType"
+            />
           <textarea
             className="border w-full my-2 rounded-md p-5 outline-none"
             placeholder="Product Description"

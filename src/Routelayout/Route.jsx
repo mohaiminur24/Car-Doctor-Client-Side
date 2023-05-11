@@ -3,6 +3,8 @@ import MainLayout from "../MainLayout";
 import HomePage from "../HomeLayout/HomePage";
 import ServiceDetails from "../ShareableComponents/ServiceDetails";
 import AddNewService from "../AddNewServiceLayout/AddNewService";
+import LoginPage from "../AuthenticationLayout/LoginPage";
+import RegistationPage from "../AuthenticationLayout/RegistationPage";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
             {
                 path:"/addservice",
                 element: <AddNewService/>
+            },
+            {
+                path:"/login",
+                element:<LoginPage/>
+            },
+            {
+                path:"/signup",
+                element:<RegistationPage/>
             }
         ]
     }

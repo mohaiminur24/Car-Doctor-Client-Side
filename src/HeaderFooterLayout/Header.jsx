@@ -84,7 +84,7 @@ const Header = () => {
       <div className="navbar-end flex gap-5">
         <BiShoppingBag/>
         <BiSearch/>
-        <button className="btn btn-warning btn-outline rounded-md">Appoinment</button>
+        <NavLink to="/login"><button className="btn btn-warning btn-outline rounded-md">Login</button></NavLink>
       </div>
     </div>
   );
