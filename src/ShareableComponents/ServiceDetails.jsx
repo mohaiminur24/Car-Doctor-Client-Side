@@ -5,6 +5,8 @@ import Facility from './Facility';
 import { BiRightArrowAlt } from "react-icons/bi";
 import logo from "../assets/logo.svg"
 import { AuthContext } from '../AuthContextLayout/AuthContexts';
+import Swal from 'sweetalert2';
+import { Toaster, toast } from 'react-hot-toast';
 
 
 const ServiceDetails = () => {
@@ -14,21 +16,38 @@ const ServiceDetails = () => {
     const nevigate = useNavigate();
 
     const handledeleteservice =()=>{
-        fetch(`http://localhost:5000/servicedelete/${_id}`, {
-            method:"DELETE",
-        }).then(res => res.json()).then(data=> {
-            if(data.deletedCount){
-                sethomedataloading(!homedataloading);
-                alert("Your Service is Successfully deleted!");
-                nevigate("/");
-            }else{
-                alert("Something wrong try again!");
-            }
-        })
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/servicedelete/${_id}`, {
+                    method:"DELETE",
+                }).then(res => res.json()).then(data=> {
+                    if(data.deletedCount){
+                        sethomedataloading(!homedataloading);
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                          )
+                        nevigate("/");
+                    }else{
+                        toast.error("Something wrong try again!")
+                    };
+                });
+            };
+          });
     };
 
     return (
         <div>
+            <div><Toaster/></div>
             <PageBanner title="Home/Service Details">Service Details</PageBanner>
             <div className='grid grid-cols-3 my-20 gap-10 font-inter'>
                 <div className='col-span-2 space-y-5'>
@@ -39,8 +58,14 @@ const ServiceDetails = () => {
                     <div className='grid grid-cols-2 gap-5'>
                         {facility && facility.map(facility=> <Facility key={Math.random()*100} facility={facility}/>)}
                     </div>
-                    <button onClick={handledeleteservice} className='px-5 py-2 bg-yellow-500 font-bold text-white rounded-md'>Delete Service</button>
+                    <div className='border-t pt-5'>
+                        <button onClick={handledeleteservice} className='px-5 py-2 bg-red-500 font-bold text-white rounded-md mr-5'>Delete Service</button>
+                        <button className='px-5 py-2 bg-green-500 font-bold text-white rounded-md'>Update Service</button>
+                    </div>
                 </div>
+
+
+
                 <div className='space-y-10'>
                     <div className='font-inter p-10 space-y-4 bg-gray-100 h-fit rounded-md'>
                     <h1 className='text-2xl font-bold mb-5'>Services</h1>

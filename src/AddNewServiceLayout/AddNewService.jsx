@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import PageBanner from "../ShareableComponents/PageBanner";
 import { AuthContext } from "../AuthContextLayout/AuthContexts";
+import Swal from "sweetalert2";
+import { Toaster, toast } from "react-hot-toast";
 
 const AddNewService = () => {
   const {homedataloading,sethomedataloading} = useContext(AuthContext);
@@ -14,6 +16,25 @@ const AddNewService = () => {
     const img = form.photourl.value;
     const description = form.description.value;
     const service = {title,price,serviceType,img,description};
+
+
+    if(!title){
+      toast.error("Must put your name first");
+      return;
+    }else if(!price){
+      toast.error("Must put your price first");
+      return;
+    }else if(!serviceType){
+      toast.error("Must put your service type first");
+      return;
+    }else if(!img){
+      toast.error("Must put your photo url first");
+      return;
+    }else if(!description){
+      toast.error("Must put your description first");
+      return;
+    };
+
     fetch("http://localhost:5000/services",{
       method:"POST",
       headers:{
@@ -24,9 +45,13 @@ const AddNewService = () => {
       if(data.insertedId){
         sethomedataloading(!homedataloading),
         form.reset();
-        alert("Your new service Added successfully!")
+        Swal.fire('Your New service create successfully!')
       }else{
-        alert("Somethig wrong try again!");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
       }
       
     });
@@ -37,6 +62,7 @@ const AddNewService = () => {
 
   return (
     <div>
+      <div><Toaster/></div>
       <PageBanner title="Home/Add New Service">Add New Service</PageBanner>
       <div className="my-10 p-10 bg-gray-100">
         <form onSubmit={handleNewservice}>

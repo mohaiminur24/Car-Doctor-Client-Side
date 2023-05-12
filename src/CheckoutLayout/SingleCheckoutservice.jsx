@@ -1,22 +1,42 @@
 import React, { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const SingleCheckoutservice = ({checkout,setdata}) => {
     const {confirm,email,img,message,name,phone,price,title,_id} = checkout;
     const [status , setstatus] = useState(confirm);
 
     const deletecheckout =()=>{
+      
         if(!status){
-            fetch(`http://localhost:5000/checkout/${_id}`,{
+
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              fetch(`http://localhost:5000/checkout/${_id}`,{
                 method:"DELETE"
                 }).then(res=> res.json())
                 .then(data=>{
                 if(data.deletedCount){
                     setdata(_id);
-                    alert("Your Checkout items delete successfully!");
+                    Swal.fire(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success'
+                    )
                 };
             })
+            }
+          })
         }else{
-            alert("your order is alredy Confrim!")
+            toast.error("your order is alredy Confrim!")
         }
     };
 
@@ -26,7 +46,7 @@ const SingleCheckoutservice = ({checkout,setdata}) => {
         }).then(res=>res.json())
         .then(data=>{
             if(data.modifiedCount){
-                alert("Your Checkout order is confrim");
+                toast.success('Your Checkout order is confrim!')
                 setstatus(true);
             };
         })
@@ -34,6 +54,7 @@ const SingleCheckoutservice = ({checkout,setdata}) => {
 
   return (
     <>
+    <div><Toaster/></div>
       <tr>
         <td>
           <div className="flex items-center space-x-3">

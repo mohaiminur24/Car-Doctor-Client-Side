@@ -4,6 +4,7 @@ import LoginwithSocial from "./LoginwithSocial";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContextLayout/AuthContexts";
 import { updateProfile } from "firebase/auth";
+import { Toaster, toast } from "react-hot-toast";
 
 const RegistationPage = () => {
   const {handleRegistration} = useContext(AuthContext);
@@ -18,16 +19,16 @@ const RegistationPage = () => {
     const password = form.password.value;
 
     if(!name){
-      alert("Your name input is empty!");
+      toast.error("Your name input is empty!")
       return;
     }else if(!photourl){
-      alert("Your Photo URL input is empty!");
+      toast.error("Your Photo URL input is empty!");
       return
     }else if(!email){
-      alert("Your email input is empty!");
+      toast.error("Your email input is empty!");
       return
     }else if(!password){
-      alert("Your password input is empty!");
+      toast.error("Your password input is empty!")
       return;
     };
 
@@ -38,17 +39,19 @@ const RegistationPage = () => {
           displayName: name,
           photoURL: photourl
         });
-        alert("Your user Create successfully!")
+        toast.success('Your user Create successfully!')
         form.reset();
         nevigate("/");
     }).catch(error=>{
-        alert(error.message);
-    })
+        toast.error(error.message)
+    });
 
     
 
   }
   return (
+    <>
+      <div><Toaster/></div>
     <div className="grid grid-cols-2 p-20 font-inter justify-center items-center">
       <img className="w-3/5 mx-auto" src={loginpic} alt="" />
       <div className="border p-20 rounded-md">
@@ -111,6 +114,7 @@ const RegistationPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

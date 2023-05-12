@@ -1,42 +1,72 @@
-import React, { useContext } from 'react';
-import PageBanner from '../ShareableComponents/PageBanner';
-import { AuthContext } from '../AuthContextLayout/AuthContexts';
-import { useLoaderData } from 'react-router-dom';
+import React, { useContext } from "react";
+import PageBanner from "../ShareableComponents/PageBanner";
+import { AuthContext } from "../AuthContextLayout/AuthContexts";
+import { useLoaderData } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 const Checkoutpage = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const service = useLoaderData();
-  const {img,price,title} = service;
+  const { img, price, title } = service;
+  console.log(user);
 
-  const handlecheckout = event =>{
-        event.preventDefault();
-        const form = event.target;
-        const name = form.FirstName.value + form.Lastname.value;
-        const phone = form.YourPhone.value;
-        const email = form.emailaddress.value;
-        const message = form.message.value;
-        const confirm = false;
-        const checkoutservice = {name,phone,email,message,img,price,title,confirm};
-        fetch("http://localhost:5000/checkout",{
-          method:"POST",
-          headers:{
-            "content-type":"application/json",
-          },
-          body: JSON.stringify(checkoutservice),
-        }).then(res=> res.json())
-        .then(data=>{
-          if(data.insertedId){
-            form.reset();
-            alert("Your service CheckOut is complete!")
-          }else{
-            alert("Something wrong try again!");
-          }
-        })
+  const handlecheckout = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.FirstName.value + form.Lastname.value;
+    const phone = form.YourPhone.value;
+    const email = form.emailaddress.value;
+    const message = form.message.value;
+    const confirm = false;
+    const checkoutservice = {
+      name,
+      phone,
+      email,
+      message,
+      img,
+      price,
+      title,
+      confirm,
+    };
+
+    if(!name){
+      toast.error("Must be put your name first!");
+      return;
+    }else if(!phone){
+      toast.error("Must be put your phone number first!");
+      return;
+    }else if(!message){
+      toast.error("Must be put your message first!");
+      return;
+    }else if(!price){
+      toast.error("Must be put your price first!");
+      return;
+    }
+
+    fetch("http://localhost:5000/checkout", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(checkoutservice),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          form.reset();
+          toast.success("Your service CheckOut is complete!");
+        } else {
+          toast.error("Something wrong try again!");
+        }
+      });
   };
 
-    return (
-        <div>
+  return (
+    <div>
       <PageBanner title="Home/checkout">Check Out</PageBanner>
+      <div>
+        <Toaster />
+      </div>
       <div className="my-10 p-10 bg-gray-100">
         <form onSubmit={handlecheckout}>
           <div className="flex gap-5">
@@ -90,7 +120,7 @@ const Checkoutpage = () => {
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default Checkoutpage;

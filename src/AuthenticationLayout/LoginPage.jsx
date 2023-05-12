@@ -3,6 +3,7 @@ import loginpic from "../assets/images/login/login.svg";
 import LoginwithSocial from "./LoginwithSocial";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContextLayout/AuthContexts";
+import { Toaster, toast } from "react-hot-toast";
 
 const LoginPage = () => {
   const {handleLoginUser} = useContext(AuthContext);
@@ -14,25 +15,27 @@ const LoginPage = () => {
     const email = form.emailaddress.value;
     const pass = form.password.value;
     if(!email){
-      alert("Must input your email!");
+      toast.error('Must put your email!');
       return;
     }else if(!pass){
-      alert("Must input your Password");
+      toast.error("Must put your password!");
       return;
     };
 
     handleLoginUser(email,pass)
     .then(res=>{
-      alert("Login user successfully");
+      toast.success('Successfully Login User!');
       form.reset();
       nevigate("/");
     }).catch(error=>{
-      alert(error.message);
+      toast.error("Someting wrong try again!");
     })
   };
 
 
   return (
+    <>
+    <div><Toaster/></div>
     <div className="grid grid-cols-2 justify-center items-center p-20 font-inter">
       <img className="w-3/5 mx-auto" src={loginpic} alt="" />
       <div className="border p-20 rounded-md">
@@ -75,6 +78,7 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

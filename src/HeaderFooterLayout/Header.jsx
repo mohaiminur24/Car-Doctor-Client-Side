@@ -3,21 +3,40 @@ import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 import { BiSearch,BiShoppingBag } from "react-icons/bi";
 import { AuthContext } from "../AuthContextLayout/AuthContexts";
+import Swal from "sweetalert2";
+import { Toaster, toast } from "react-hot-toast";
 
 const Header = () => {
   const {user,UserLogOut} = useContext(AuthContext);
 
   const Logout = ()=>{
-    UserLogOut()
-    .then(res=>{
-      alert("User Logout successfully!")
-    }).catch(error=>{
-      alert(error.message);
-    })
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able anymore!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        UserLogOut()
+        .then(res=>{
+          Swal.fire(
+            'Logout!',
+            'You logout successfully!',
+            'success'
+          );
+        }).catch(error=>{
+        toast.error(error.message);
+        });
+      }
+    });
   };
 
   const navitems = (
     <>
+    <div><Toaster/></div>
       <li>
         <NavLink
           className={({ isActive }) => isActive && "text-yellow-500"}
