@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
-const SingleCheckoutservice = ({checkout}) => {
+const SingleCheckoutservice = ({checkout,setdata}) => {
     const {confirm,email,img,message,name,phone,price,title,_id} = checkout;
+    const [status , setstatus] = useState(confirm);
+
     const deletecheckout =()=>{
-        fetch("",{
-            method:"DELETE"
-        }).then(res=> res.json())
+        if(!status){
+            fetch(`http://localhost:5000/checkout/${_id}`,{
+                method:"DELETE"
+                }).then(res=> res.json())
+                .then(data=>{
+                if(data.deletedCount){
+                    setdata(_id);
+                    alert("Your Checkout items delete successfully!");
+                };
+            })
+        }else{
+            alert("your order is alredy Confrim!")
+        }
+    };
+
+    const confrimorder = ()=>{
+        fetch(`http://localhost:5000/checkout/${_id}`,{
+            method:"PUT",
+        }).then(res=>res.json())
         .then(data=>{
-            console.log(data);
+            if(data.modifiedCount){
+                alert("Your Checkout order is confrim");
+                setstatus(true);
+            };
         })
     };
 
@@ -40,10 +61,10 @@ const SingleCheckoutservice = ({checkout}) => {
 
         <td>{email}</td>
 
-        <th className="flex gap-5">
-          <button className="btn bg-yellow-500 border-none">{confirm ? "confrim" : "Pending" }</button>
+        <td>
+          <button onClick={confrimorder} className="btn bg-yellow-500 border-none mr-5">{status ? "confrim" : "Pending" }</button>
           <button onClick={deletecheckout} className="btn bg-red-500 border-none">Delete</button>
-        </th>
+        </td>
       </tr>
     </>
   );

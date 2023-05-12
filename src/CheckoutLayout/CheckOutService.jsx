@@ -12,7 +12,11 @@ const CheckOutService = () => {
       .then((data) => setCheckout(data));
   }, []);
 
-  console.log(checkout)
+  const updateCheckout = (id) =>{
+        const filterdata = checkout.filter(service=> service._id !== id);
+        setCheckout(filterdata);
+  };
+
   return (
     <div className="my-10 font-inter">
 
@@ -29,7 +33,7 @@ const CheckOutService = () => {
           </thead>
           <tbody>
             {
-                checkout && checkout.map(service=> <SingleCheckoutservice key={service._id} checkout={service}/>)
+                checkout && checkout.map(service=> <SingleCheckoutservice key={service._id} checkout={service} setdata={updateCheckout}/>)
             }
           </tbody>
         </table>
