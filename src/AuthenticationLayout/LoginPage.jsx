@@ -6,7 +6,7 @@ import { AuthContext } from "../AuthContextLayout/AuthContexts";
 import { Toaster, toast } from "react-hot-toast";
 
 const LoginPage = () => {
-  const {handleLoginUser} = useContext(AuthContext);
+  const {handleLoginUser,createJwtToken} = useContext(AuthContext);
   const nevigate = useNavigate();
 
   const LoginUser = event =>{
@@ -24,6 +24,8 @@ const LoginPage = () => {
 
     handleLoginUser(email,pass)
     .then(res=>{
+      const user = {email: res.user.email};
+      createJwtToken(user);
       toast.success('Successfully Login User!');
       form.reset();
       nevigate("/");

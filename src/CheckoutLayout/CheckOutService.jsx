@@ -7,7 +7,12 @@ const CheckOutService = () => {
   const [checkout, setCheckout] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/checkoutService/${user.email}`)
+    fetch(`http://localhost:5000/checkoutService/${user.email}`,{
+      method:"GET",
+      headers:{
+        authToken: `Bearer ${localStorage.getItem("CarDoctorAccessToken")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setCheckout(data));
   }, []);

@@ -33,7 +33,21 @@ const AuthContexts = ({ children }) => {
   
   const handlegithublogin =()=>{
     return signInWithPopup(auth, githubProvider);
-  }
+  };
+
+  const createJwtToken =(user)=>{
+      fetch("http://localhost:5000/jwt",{
+        method:"POST",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(user),
+      }).then(res=> res.json())
+      .then(data=>{
+        const token = data.token;
+        localStorage.setItem("CarDoctorAccessToken", token);
+      });
+  };
 
 
 
@@ -60,7 +74,8 @@ const AuthContexts = ({ children }) => {
     homedataloading,
     sethomedataloading,
     handlegooglelogin,
-    handlegithublogin
+    handlegithublogin,
+    createJwtToken
   };
 
   return (

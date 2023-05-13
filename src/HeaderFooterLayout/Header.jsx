@@ -22,6 +22,7 @@ const Header = () => {
       if (result.isConfirmed) {
         UserLogOut()
         .then(res=>{
+          localStorage.removeItem("CarDoctorAccessToken");
           Swal.fire(
             'Logout!',
             'You logout successfully!',
