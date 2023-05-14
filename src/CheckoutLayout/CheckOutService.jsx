@@ -7,7 +7,7 @@ const CheckOutService = () => {
   const [checkout, setCheckout] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/checkoutService/${user.email}`,{
+    fetch(`https://car-website-server-side.vercel.app/checkoutService/${user.email}`,{
       method:"GET",
       headers:{
         authToken: `Bearer ${localStorage.getItem("CarDoctorAccessToken")}`,

@@ -20,7 +20,7 @@ const SingleCheckoutservice = ({checkout,setdata}) => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-              fetch(`http://localhost:5000/checkout/${_id}`,{
+              fetch(`https://car-website-server-side.vercel.app/checkout/${_id}`,{
                 method:"DELETE"
                 }).then(res=> res.json())
                 .then(data=>{
@@ -41,7 +41,7 @@ const SingleCheckoutservice = ({checkout,setdata}) => {
     };
 
     const confrimorder = ()=>{
-        fetch(`http://localhost:5000/checkout/${_id}`,{
+        fetch(`https://car-website-server-side.vercel.app/checkout/${_id}`,{
             method:"PUT",
         }).then(res=>res.json())
         .then(data=>{

@@ -23,7 +23,7 @@ const router = createBrowserRouter([
             {
                 path:"/service/:id",
                 element: <PrivateRoute><ServiceDetails/></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/service/${params.id}`)
+                loader: ({params})=>fetch(`https://car-website-server-side.vercel.app/service/${params.id}`)
             },
             {
                 path:"/addservice",
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path: "/checkout/:id",
                 element: <PrivateRoute><Checkoutpage/></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/service/${params.id}`)
+                loader: ({params})=>fetch(`https://car-website-server-side.vercel.app/service/${params.id}`)
             },
             {
                 path: "/checkout",

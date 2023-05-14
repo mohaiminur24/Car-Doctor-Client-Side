@@ -26,7 +26,7 @@ const ServiceDetails = () => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/servicedelete/${_id}`, {
+                fetch(`https://car-website-server-side.vercel.app/servicedelete/${_id}`, {
                     method:"DELETE",
                 }).then(res => res.json()).then(data=> {
                     if(data.deletedCount){

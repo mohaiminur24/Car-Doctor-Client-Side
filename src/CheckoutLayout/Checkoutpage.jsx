@@ -43,7 +43,7 @@ const Checkoutpage = () => {
       return;
     }
 
-    fetch("http://localhost:5000/checkout", {
+    fetch("https://car-website-server-side.vercel.app/checkout", {
       method: "POST",
       headers: {
         "content-type": "application/json",

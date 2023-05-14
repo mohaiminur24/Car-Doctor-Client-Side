@@ -7,7 +7,7 @@ const ServiceLayout = () => {
     const {homedataloading} = useContext(AuthContext);
     
     useEffect(()=>{
-        fetch("http://localhost:5000/services")
+        fetch("https://car-website-server-side.vercel.app/services")
         .then(res=> res.json())
         .then(data => setService(data));
     },[homedataloading])
